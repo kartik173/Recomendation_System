@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Bootstrap Example</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <style>
+         .footer {
+         color: white;
+         text-align: center;
+         margin-top:10px
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <div class="row">
+            {% if flag==False %}
+            <div class="col-md-3"></div>
+            <div class="col-md-6" align="center" style="margin-top:100px">
+               <h2>Product Recommendation System</h2>
+               <br><br>
+               <form action="/" method="POST">
+                  <div class="form-inline">
+                     <input type="text" class="form-control" name="userid" placeholder="Enter User ID">
+                     <button type="submit" class="btn btn-info">Submit</button>
+                  </div>
+               </form>
+            </div>
+            <div class="col-md-3"></div>
+            {% else %}
+            {% if errors == True %}
+            <div class="col-md-3"></div>
+            <div class="col-md-6" align="center" style="margin-top:100px">
+               <h2>Product Recommendation System</h2>
+               <br><br>
+               <form action="/" method="POST">
+                  <div class="form-inline">
+                     <input type="text" class="form-control" name="userid" placeholder="Enter User ID">
+                     <button type="submit" class="btn btn-info">Submit</button>
+                  </div>
+               </form>
+               <br><br>
+               <div class="alert alert-danger">
+                  <strong>User Not Found, Please check with different User</strong>
+               </div>
+            </div>
+            <div class="col-md-3"></div>
+            {% else %}
+            <div class="col-md-12" align="center" style="margin-top:10px;margin-bottom:100px">
+               <h2>Top Recommended Products</h2>
+               <br>
+               <table class="table table-hover table-bordered">
+                  <thead>
+                     <tr>
+                        {% for i in data.columns %}
+                        <th>{{i}}</th>
+                        {% endfor %}
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% for i in data.index %}
+                     <tr>
+                        {% for j in data.columns %}
+                        <td>{{data.loc[i,j]}}</td>
+                        {% endfor %}
+                     </tr>
+                     {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+            {% endif %}
+            {% endif %}
+         </div>
+      </div>
+      <nav class="navbar navbar-inverse navbar-fixed-bottom">
+         <div class="container-fluid">
+            {% if flag==True and errors==False %}
+            <div class="row" align="center" style="margin-top:5px">
+               <form action="/" method="GET">
+                  <button type="submit" class="btn btn-default">Home</button>
+               </form>
+            </div>
+            {%endif%}
+            <p class="footer">Developed and Designed by Kartik Sharma
+            <p>
+         </div>
+      </nav>
+   </body>
+</html>
